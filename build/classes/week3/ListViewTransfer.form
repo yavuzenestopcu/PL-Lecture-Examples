@@ -30,8 +30,8 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="btn_leftToRight" max="32767" attributes="0"/>
                   <Component id="btn_rightToLeft" max="32767" attributes="0"/>
-                  <Component id="btn_rightToAll" max="32767" attributes="0"/>
                   <Component id="btn_leftToAll" max="32767" attributes="0"/>
+                  <Component id="btn_rightToAll" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               <Component id="jScrollPane2" min="-2" pref="132" max="-2" attributes="0"/>
@@ -49,9 +49,9 @@
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       <Component id="btn_rightToLeft" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                      <Component id="btn_leftToAll" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
                       <Component id="btn_rightToAll" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                      <Component id="btn_leftToAll" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
@@ -129,16 +129,25 @@
       <Properties>
         <Property name="text" type="java.lang.String" value="&lt;"/>
       </Properties>
-    </Component>
-    <Component class="javax.swing.JButton" name="btn_leftToAll">
-      <Properties>
-        <Property name="text" type="java.lang.String" value="&gt;&gt;"/>
-      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_rightToLeftActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="btn_rightToAll">
       <Properties>
+        <Property name="text" type="java.lang.String" value="&gt;&gt;"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_rightToAllActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="btn_leftToAll">
+      <Properties>
         <Property name="text" type="java.lang.String" value="&lt;&lt;"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btn_leftToAllActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

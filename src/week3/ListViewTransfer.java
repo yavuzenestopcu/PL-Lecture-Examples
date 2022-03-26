@@ -11,16 +11,28 @@ import javax.swing.DefaultListModel;
  *
  * @author Yavuuz
  */
-public class NewJFrame extends javax.swing.JFrame {
-    DefaultListModel modelFirst;
-    DefaultListModel modelSecond;
+
+//Liste içeriği oluşturma.
+public class ListViewTransfer extends javax.swing.JFrame {
+    DefaultListModel<String> modelLeft = new DefaultListModel<>();
+    DefaultListModel<String> modelRight = new DefaultListModel<>();
+
+    
+    List<String> selectedValues;
+
     /**
-     * Creates new form NewJFrame
+     * Creates new form NewJFrame1
      */
-    public NewJFrame() {
+    public ListViewTransfer() {
         initComponents();
-        //modelFirst = (DefaultListModel)lst_first.getModel();
-        //modelSecond = (DefaultListModel)lst_second.getModel();
+        for (int i = 0; i < 5; i++) {
+            modelLeft.addElement(i + "");
+        }
+        lst_first.setModel(modelLeft);
+        for (int i = 5; i < 10; i++) {
+            modelRight.addElement(i + "");
+        }
+        lst_second.setModel(modelRight);
     }
 
     /**
@@ -38,8 +50,8 @@ public class NewJFrame extends javax.swing.JFrame {
         lst_second = new javax.swing.JList<>();
         btn_leftToRight = new javax.swing.JButton();
         btn_rightToLeft = new javax.swing.JButton();
-        btn_leftToAll = new javax.swing.JButton();
         btn_rightToAll = new javax.swing.JButton();
+        btn_leftToAll = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -65,10 +77,25 @@ public class NewJFrame extends javax.swing.JFrame {
         });
 
         btn_rightToLeft.setText("<");
+        btn_rightToLeft.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_rightToLeftActionPerformed(evt);
+            }
+        });
 
-        btn_leftToAll.setText(">>");
+        btn_rightToAll.setText(">>");
+        btn_rightToAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_rightToAllActionPerformed(evt);
+            }
+        });
 
-        btn_rightToAll.setText("<<");
+        btn_leftToAll.setText("<<");
+        btn_leftToAll.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_leftToAllActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,8 +108,8 @@ public class NewJFrame extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btn_leftToRight, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(btn_rightToLeft, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_rightToAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btn_leftToAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btn_leftToAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btn_rightToAll, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
@@ -97,9 +124,9 @@ public class NewJFrame extends javax.swing.JFrame {
                         .addGap(17, 17, 17)
                         .addComponent(btn_rightToLeft)
                         .addGap(17, 17, 17)
-                        .addComponent(btn_leftToAll)
+                        .addComponent(btn_rightToAll)
                         .addGap(17, 17, 17)
-                        .addComponent(btn_rightToAll))
+                        .addComponent(btn_leftToAll))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -111,9 +138,44 @@ public class NewJFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void btn_leftToRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_leftToRightActionPerformed
-           
-    }//GEN-LAST:event_btn_leftToRightActionPerformed
+    private void btn_leftToRightActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lefttorightActionPerformed
+        // TODO add your handling code here:
+        selectedValues = lst_first.getSelectedValuesList();
+        for(String value: selectedValues){
+            modelLeft.removeElement(value);
+            modelRight.addElement(value);
+        }
+        lst_first.setModel(modelLeft);
+        lst_second.setModel(modelRight);            
+    
+    }//GEN-LAST:event_btn_lefttorightActionPerformed
+
+    private void btn_rightToLeftActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rightToLeftActionPerformed
+        // TODO add your handling code here:
+        selectedValues = lst_second.getSelectedValuesList();
+        for(String value: selectedValues){
+            modelRight.removeElement(value);
+            modelLeft.addElement(value);
+        }
+        lst_first.setModel(modelLeft);
+        lst_second.setModel(modelRight);
+    }//GEN-LAST:event_btn_rightToLeftActionPerformed
+
+    private void btn_rightToAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_rightToAllActionPerformed
+        // TODO add your handling code here:
+        for(int i = 0; i < modelLeft.size(); i++){
+            modelRight.addElement(modelLeft.get(i));
+        }
+        modelLeft.clear();
+    }//GEN-LAST:event_btn_rightToAllActionPerformed
+
+    private void btn_leftToAllActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_leftToAllActionPerformed
+        // TODO add your handling code here:
+        for(int i = 0; i < modelRight.size(); i++){
+            modelLeft.addElement(modelRight.get(i));
+        }
+        modelRight.clear();
+    }//GEN-LAST:event_btn_leftToAllActionPerformed
 
     /**
      * @param args the command line arguments
@@ -132,20 +194,27 @@ public class NewJFrame extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListViewTransfer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListViewTransfer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListViewTransfer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(NewJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(ListViewTransfer.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new NewJFrame().setVisible(true);
+                new ListViewTransfer().setVisible(true);
             }
         });
     }

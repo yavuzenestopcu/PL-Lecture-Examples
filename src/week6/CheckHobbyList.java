@@ -126,6 +126,12 @@ public class CheckHobbyList extends javax.swing.JFrame {
             }
         }
         jList1.setModel(model);
+        
+        for (Component c : components) {
+            if (c instanceof JCheckBox) {
+                ((JCheckBox) c).setSelected(false);
+            }
+        }
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
